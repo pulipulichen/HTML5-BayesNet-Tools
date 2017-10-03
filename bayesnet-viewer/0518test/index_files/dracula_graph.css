@@ -1,0 +1,33 @@
+#canvas > svg {
+    border: 1px solid red !important;
+}
+.c {
+    transition: opacity 0.3s ease-in-out;
+}
+.moving {
+    /*visibility: hidden;*/
+    opacity: 0;
+}
+/*
+.moving.end {
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+}
+*/
+/*
+.moving{
+    background-color: rgba(255, 0, 0, 0.83);
+    border-radius: 8px;
+    box-shadow: silver 3px 3px 5px 0px;
+    border: 2px dashed yellow;
+    padding: 3px;
+}
+.fadeOut.end{
+    transition: all 1s ease-in-out;
+    background-color: rgba(255, 0, 0, 0.0);
+    box-shadow: none;
+    border: 0px dashed yellow;
+    border-radius: 0px;
+}
+*/

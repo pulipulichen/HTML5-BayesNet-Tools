@@ -1,0 +1,30 @@
+
+<!-- saved from url=(0050)https://www.graphdracula.net/0.0.3alpha/index.html -->
+<html><head>
+        <title>div_graph_demo viewer</title>
+    </head>
+<body>
+    
+    
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<!-- 繪圖需要的所有函式庫 -->
+<script type="text/javascript" src="raphael-min.js"></script>
+<script type="text/javascript" src="dracula_graffle.js"></script>
+<script type="text/javascript" src="dracula_graph.js"></script>
+<link rel="stylesheet" href="dracula_graph.css"></link>
+<script type="text/javascript" src="div_graph.js"></script>
+<!-- 繪圖需要的所有函式庫 -->
+
+<script type="text/javascript" src="script.js"></script>
+<link rel="stylesheet" href="style.css" />
+    
+<div id="canvas" style="width: 800px; height: 400px;">
+    <div node_id="A">AAAA</div>
+    <div node_id="B" parent_nodes=["A"]>BBBB</div>
+    <div node_id="C" parent_nodes=["B"]>CCCC</div>
+    <div node_id="D" parent_nodes='["C"]'>DDDD</div>
+    <!-- <div node_id="E">EEE</div> -->
+</div>
+
+</body></html>

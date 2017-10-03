@@ -1,0 +1,35 @@
+.div_graph-node {
+    display: inline-block;
+    user-select: none;
+    cursor: default;
+}
+.div_graph-hide-position {
+    position: absolute !important;
+    top: -100vh !important;
+    left: -100vw !important;
+}
+.div_graph-node-wrapper {
+    position: absolute;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    padding: 10px !important;
+    display: inline-block;
+}
+.div_graph-node-wrapper > * {
+    pointer-events: auto;
+    white-space: nowrap;
+}
+
+.div_graph-node-wrapper.moving {
+    opacity: 0;
+}
+
+svg.div_graph-svg > rect[stroke="#000"]:not(.div_graph-rect) {
+    display: none;
+}
+
+/*
+#canvas > svg {
+    border: 1px solid green !important;
+}
+*/

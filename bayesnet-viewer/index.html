@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>
+            貝氏網路模型檢視器 BayesNet Viewer
+        </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css" />
+        
+<link rel="stylesheet" href="//pulipulichen.github.io/blogger/posts/2016/12/semantic/semantic.min.css" />
+<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" />
+    </head>
+    <body class="">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="//pulipulichen.github.io/blogger/posts/2016/12/semantic/semantic.min.js"></script>
+<script src="http://pulipulichen.github.io/blogger/posts/2016/12/puli-util.clipboard.js"></script>
+<!--
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+-->
+
+<script type="text/javascript" src="bayes.js"></script>
+<!-- <script type="text/javascript" src="sick.js"></script> -->
+<script type="text/javascript" src="bayesnet-viewer.js"></script>
+
+<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="script.js"></script>
+
+<!-- 繪圖需要的所有函式庫 -->
+<script type="text/javascript" src="div_graph/raphael-min.js"></script>
+<script type="text/javascript" src="div_graph/dracula_graffle.js"></script>
+<script type="text/javascript" src="div_graph/dracula_graph.js"></script>
+<link rel="stylesheet" href="div_graph/dracula_graph.css" />
+<script type="text/javascript" src="div_graph/div_graph.js"></script>
+<script type="text/javascript" src="div_graph/dragscroll.js"></script>
+<!-- 繪圖需要的所有函式庫 -->
+
+
+<!-- ------------------------------------------------------------ -->
+
+<div style="text-align:right">
+    <a href="../bayesnet-structure-editor">貝氏網路結構編輯器</a>
+</div>
+
+<form class="file-process-framework ui form">
+
+  <div class="ui ">
+    <div class="column">
+	<div class="ui segment">
+	
+    
+<h1 class="ui horizontal divider header">
+  Input
+</h1>
+
+
+<!-- --------------------------------- -->
+
+<div class="ui bottom attached active tab segment input-field-container">
+    
+    <!-- https://apps.lazza.dk/facebook/ -->
+
+    <div class="ui top attached tabular menu">
+        <div class="item" data-tab="mode_textarea">文字框輸入</div>
+        <div class="active item" data-tab="mode_file">選擇檔案輸入</div>
+    </div>
+    
+    <div class="ui bottom attached  tab segment" data-tab="mode_textarea">
+        <div class="field">
+            <label for="input_data">請輸入BIF XML資料</label>
+            <textarea class="change-trigger focus_select" 
+                      id="input_data"></textarea>
+        </div>
+    </div>
+    
+    <div class="ui bottom attached active tab segment" data-tab="mode_file">
+        <div class="field">
+            <label for="input_file">
+                請上傳XML BIF檔案： 
+                (<a href="data-sick.xml">範例檔案1下載</a>
+                    , 
+                    <a href="data-cloudy.xml">範例檔案2下載</a>, 
+                    <a href="data-alarm">範例檔案2下載</a>)
+            </label>
+            <input type="file" id="input_file" class="file-change-trigger" data-file-to-textarea="#input_data" />
+        </div>
+    </div>
+    
+    
+</div>
+
+<!-- -------------------------------------- -->
+
+    </div> <!-- <div class="ui segment"> -->        
+</div> <!-- <div class="column"> -->
+  <!-- -------------------------------------- -->
+<div class="column">
+  <div class="ui segment display-result" style="">
+  <!-- <div class="display-result"> -->
+  
+    <h1 class="ui horizontal divider header">
+      Result
+    </h1>
+  
+  <ul>
+      <li>勾選變項中的證據來表示該變項呈現已知，觀察其他變項機率的變化吧。</li>
+      <li>變項可以拖曳移動。</li>
+  </ul>
+  
+  <div id="preview_html_wrapper" class="dragscroll">
+    <div id="preview_html" class="ui segment" ></div>
+  </div>
+  
+  <div class="ui basic segment">
+    <button type="button" class="ui icon teal mini button cancel-evidences-button" title="取消已勾選的證據">取消已勾選的證據</button>
+  </div>
+  
+  <div class="bayesnet-table">
+      <table class="ui table" border="1" cellspacing="0" cellpadding="5">
+          <thead>
+              <tr>
+                  <th>子節點</th>
+                  <th>條件機率表</th>
+                  <th>可能選項</th>
+                  <th><i class="long arrow left icon"></i></th>
+                  <th>父節點 (影響的原因) </th>
+              </tr>
+          </thead>
+          <tbody>
+          </tbody>
+      </table>
+  </div>
+  
+  
+  </div>
+</div> <!-- <div class="column"> -->
+
+    <!-- -------------------------------------- -->
+  </div> <!-- <div class="ui two column doubling grid"> -->
+</form>
+
+<!-- ------------------------------------------------------------ -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-37178375-7', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    </body>
+</html>

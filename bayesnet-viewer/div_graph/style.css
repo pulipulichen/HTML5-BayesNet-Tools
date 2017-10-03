@@ -1,0 +1,8 @@
+#canvas > div {
+    background-color: yellow;
+    /*padding: 10px;*/
+}
+
+#canvas {
+    /* border: 1px solid red; */
+}

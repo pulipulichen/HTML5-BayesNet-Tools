@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>
+            貝氏網路結構編輯器 Bayes Net Structure Editor
+        </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css" />
+        
+<link rel="stylesheet" href="//pulipulichen.github.io/blogger/posts/2016/12/semantic/semantic.min.css" />
+<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" />
+    </head>
+    <body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="//pulipulichen.github.io/blogger/posts/2016/12/semantic/semantic.min.js"></script>
+<script src="http://pulipulichen.github.io/blogger/posts/2016/12/puli-util.clipboard.js"></script>
+<!--
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+-->
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="bayesnet-structure-editor.js"></script>
+<script src="script.js"></script>
+
+<!-- ------------------------------------------------------------ -->
+<div style="text-align:right">
+    <a href="../bayesnet-viewer">貝氏網路檢視器</a>
+</div>
+
+<form class="file-process-framework ui form">
+
+  <div class="ui two column doubling grid">
+    <div class="column">
+	<div class="ui segment">
+	
+    
+<h1 class="ui horizontal divider header">
+  Input
+</h1>
+
+
+<!-- --------------------------------- -->
+
+<div class="ui bottom attached active tab segment input-field-container">
+    
+    <!-- https://apps.lazza.dk/facebook/ -->
+
+    <div class="ui top attached tabular menu">
+        <div class="item" data-tab="mode_textarea">文字框輸入</div>
+        <div class="active item" data-tab="mode_file">選擇檔案輸入</div>
+        <div class=" item" data-tab="mode_google_spreadsheet">Google試算表發佈連結</div>
+    </div>
+    
+    <div class="ui bottom attached  tab segment" data-tab="mode_textarea">
+        <div class="field">
+            <label for="input_data">請輸入CSV、ARFF或XMLBIF資料，或是用「,」隔開每一個變項：</label>
+            <textarea class="change-trigger focus_select" 
+                      id="input_data"></textarea>
+        </div>
+    </div>
+    
+    <div class="ui bottom attached active tab segment" data-tab="mode_file">
+        <div class="field">
+            <label for="input_file">
+                請上傳CSV、ARFF或XMLBIF檔案： 
+                (<a href="https://docs.google.com/spreadsheets/d/1Xf7HwjEDlslZpNF0yp7LXGl927HdjFQbAT0PLOrIuD8/export?format=csv">範例檔案1下載</a>
+                    , 
+                    <a href="https://docs.google.com/spreadsheets/d/1UTooTGvePmVCtRxKUYTfcUpt4kDjA_FtuoiKIHkRnuE/export?format=csv">範例檔案2下載</a>)
+            </label>
+            <input type="file" id="input_file" class="file-change-trigger" data-file-to-textarea="#input_data" />
+        </div>
+    </div>
+    
+    <div class="ui bottom attached  tab segment" data-tab="mode_google_spreadsheet">
+        <div class="field">
+            <label for="input_url">
+                請輸入Google試算表發佈連結：(<a href="http://www.ioa.tw/google-sheets-api-note.html" target="pub">操作教學</a>) 
+            </label>
+            <input type="text" id="input_url" class="google-spreadsheet-trigger focus_select" 
+                   data-sheet-selector="#input_url_sheet"
+                   data-file-to-textarea="#input_data"
+                   value="https://docs.google.com/spreadsheets/d/1DdtDGbZPUCjZj_ZLNca3vpsFeTSHQ1T7Grw-ZhiBudQ/pubhtml?gid=1050192646&single=true" />
+        </div> 
+    </div>
+    
+</div>
+
+<!-- -------------------------------------- -->
+
+		</div> <!-- <div class="ui segment"> -->
+                 
+
+  <!-- ------------------------------------------------- -->
+        
+	</div> <!-- <div class="column"> -->
+  <!-- -------------------------------------- -->
+<div class="column">
+    
+         
+        <div class="ui segment">
+	
+    
+<h1 class="ui horizontal divider header">
+    貝氏網路結構
+</h1>
+        <div class="contingency-table-col-plus ui inline field">
+            <label for="input_target_node">快速設定結構: </label>
+            <select name="input_target_node" id="input_target_node">
+                <option value="lag2" >lag2</option>
+                <option value="lag1" >lag1</option>
+                <option value="class" selected="selected">class</option>
+            </select>
+            <button type="button" class="ui button tiny input-set-target-parent">
+                <i class="sort ascending icon"></i>
+                此節點為原因
+            </button>
+            <button type="button" class="ui button tiny input-set-target-child">
+                <i class="sort descending icon"></i>
+                此節點為結果
+            </button>
+        </div>
+        <div class="contingency-table-col-plus ui inline field">
+            <button type="button" class="ui button tiny input-set-reverse">
+                <i class="exchange icon"></i>
+                全部子節點與父節點交換因果
+            </button>
+        </div>
+        <div class="contingency-table-col-plus ui field" style="text-align: center;">
+            <button type="button" class="fluid ui button teal tiny input-download-bayes-net-xml">
+                <i class="download icon"></i>
+                下載貝氏網路結構檔
+            </button>
+        </div>
+        <div class="ui segment" id="bayesnet_structure_editor">
+            <table class="ui table">
+                <thead>
+                    <tr>
+                        <th align="right" class="child-node-thead">
+                            子節點<br />(結果)
+                        </th>
+                        <th class="arrow-thead">
+                            <i class="long arrow left icon"></i>
+                        </th>
+                        <th>父節點<br />(影響的原因)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="child-node bottom-border-thin" align="right">
+                            <button type="button" class="ui button tiny">
+                                lag2
+                            </button>
+                        </th>
+                        <th align="center">
+                            <i class="long arrow left icon"></i>
+                        </th>
+                        <td class="cell_td">
+                            <div class="ui inline field">
+                                <span class="parent-nodes">
+                                    <button type="button" class="ui button teal tiny">
+                                        class
+                                        <i class="remove icon"></i>
+                                    </button>
+                                </span>
+                                <select name="input_target_node" >
+                                    <option value="lag2" selected="selected">lag2</option>
+                                </select>
+                                <button type="button" class="ui button teal tiny">
+                                    <i class="add square icon"></i>
+                                    新增
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="child-node" align="right">
+                            <button type="button" class="ui button tiny">
+                                lag1
+                            </button>
+                        </th>
+                        <th align="center">
+                            <i class="long arrow left icon"></i>
+                        </th>
+                        <td class="cell_td">
+                            <div class="ui inline field">
+                                <span class="parent-nodes">
+                                    <button type="button" class="ui button teal tiny">
+                                        class
+                                        <i class="remove icon"></i>
+                                    </button>
+                                </span>
+                                <select name="input_target_node" >
+                                    <option value="lag2" selected="selected">lag2</option>
+                                </select>
+                                <button type="button" class="ui button teal tiny">
+                                    <i class="add square icon"></i>
+                                    新增
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="child-node" align="right">
+                            <button type="button" class="ui button tiny">
+                                class
+                            </button>
+                        </th>
+                        <th align="center">
+                            <i class="long arrow left icon"></i>
+                        </th>
+                        <td class="cell_td">
+                            <div class="ui inline field">
+                                <span class="parent-nodes">
+                                    <button type="button" class="ui button teal tiny">
+                                        class
+                                        <i class="remove icon"></i>
+                                    </button>
+                                </span>
+                                <select name="input_target_node" >
+                                    <option value="lag2" selected="selected">lag2</option>
+                                </select>
+                                <button type="button" class="ui button teal tiny">
+                                    <i class="add square icon"></i>
+                                    新增
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+            
+        </div><!-- <div class="ui segment"> -->          
+  
+</div> <!-- <div class="column"> -->
+  </div> <!-- <div class="ui two column doubling grid"> -->
+</form>
+
+<!-- ------------------------------------------------------------ -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-37178375-7', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    </body>
+</html>
