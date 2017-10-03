@@ -7,3 +7,6 @@ Demo:
 - Main: https://pulipulichen.github.io/HTML5-BayesNet-Tools/
 - Structure Editor: https://pulipulichen.github.io/HTML5-BayesNet-Tools/bayesnet-structure-editor
 - Viewer: https://pulipulichen.github.io/HTML5-BayesNet-Tools/bayesnet-viewer
+
+Data: 
+- Sick: https://pulipulichen.github.io/HTML5-BayesNet-Tools/bayesnet-viewer/data-sick.xml
