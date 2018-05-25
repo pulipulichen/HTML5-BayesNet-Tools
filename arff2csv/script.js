@@ -55,7 +55,7 @@ var _process_file = function(_input, _buffer, _callback) {
     };	//var _line_process_plain_text = function (_line) {
 
     var _line_process_csv = function (_line, _line_number, _has_distribution) {
-        console.log(_line);
+        //console.log(_line);
         var _fields = _line.split(",");
 
 
@@ -97,7 +97,13 @@ var _process_file = function(_input, _buffer, _callback) {
                 }
             }
             
-            _entropy_list.push(-1*_entropy);
+            if (_line.indexOf("*") > -1) {
+                _entropy_list.push(-1*_entropy);
+            }
+            else {
+                _entropy_list.push("undefined");
+            }
+            
         }
         else {
             // 這是沒有顯示機率分配表的時候
