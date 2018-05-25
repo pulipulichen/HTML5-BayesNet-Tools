@@ -54,8 +54,8 @@ var _process_file = function(_input, _buffer, _callback) {
         }
     };	//var _line_process_plain_text = function (_line) {
 
-    var _line_process_csv = function (_line, _line_number) {
-        //console.log(_line);
+    var _line_process_csv = function (_line, _line_number, _has_distribution) {
+        console.log(_line);
         var _fields = _line.split(",");
 
 
@@ -71,7 +71,8 @@ var _process_file = function(_input, _buffer, _callback) {
 
         // ----------------------
 
-        if (_line.indexOf("*") > -1) {
+        //if (_line.indexOf("*") > -1) {
+        if (_has_distribution) {
             _line_number--;
             _pro_dis[_line_number] = [];
             
@@ -79,7 +80,6 @@ var _process_file = function(_input, _buffer, _callback) {
             
             for (var _i = 4; _i < _fields.length; _i++) {
                 var _index = _fields[_i];
-                
                 
                 if (_index.indexOf("*") > -1) {
                     //console.log([_index, _pre]);
@@ -89,15 +89,18 @@ var _process_file = function(_input, _buffer, _callback) {
                 _pro_dis[_line_number].push(_index);
                 
                 //console.log(_index);
-                if (_index !== "0") {
+                if (_index !== "0" && _index !== 0) {
                     var _p = parseFloat(_index, 10);
-                    _entropy = _entropy + _p * Math.log(_p);
+                    if (isNaN(_p) === false) {
+                        _entropy = _entropy + _p * Math.log(_p);
+                    }
                 }
             }
             
             _entropy_list.push(-1*_entropy);
         }
         else {
+            // 這是沒有顯示機率分配表的時候
             var _pos = _line.lastIndexOf(",", _line.length - 2);
             var _index = _line.substring(_pos + 1, _line.length).trim();
             _index = parseFloat(_index, 10);
@@ -128,13 +131,14 @@ var _process_file = function(_input, _buffer, _callback) {
         if (_head_pos !== -1 && _footer_pos !== -1) {
             _buffer = _buffer.substring(_head_pos + _head_needle.length, _footer_pos).trim();
             var _lines = _buffer.split("\n");
+            var _has_distribution = _lines[0].indexOf("distribution");
             for (var _l = 1; _l < _lines.length; _l++) {
                 var _line = _lines[_l];
                 if (_line.indexOf(",") === -1) {
                     _line_process_plain_text(_line);
                 }	// if (_line.indexOf(",") === -1) {
                 else {
-                    _line_process_csv(_line, _l);
+                    _line_process_csv(_line, _l, _has_distribution);
                 }
             }
         }
