@@ -272,7 +272,7 @@ var _load_google_spreadsheet = function () {
 // -----------------------
 
 var _load_data_from_filepath = function (_selector, _file_path, _callback) {
-    //console.log(_file_path);
+    console.log(_file_path);
     $.ajax({
         url: _file_path,
         method: 'GET',
@@ -313,9 +313,8 @@ $(function () {
 
     //$('.menu .item').tab();
     
-    _load_data_from_filepath("#input_data", "data.xml", _combine_input);
+    _load_data_from_filepath("#input_data", "./data.xml", _combine_input);
     
-
     $('#copy_source_code').click(function () {
         PULI_UTIL.clipboard.copy($("#preview").val());
     });
